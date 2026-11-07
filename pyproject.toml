@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "log3"
+version = "0.4.0"
+description = "High-performance C++17 BitNet b1.58 (2-bit ternary), N-D Tensor, SIMD Kernels, GQA Transformer, Zero-Copy .l3 I/O, and Reverse-Mode Autograd library"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [
+  {name = "Ansh Raj"}
+]
+keywords = ["bitnet", "b1.58", "ternary", "llm", "tensor", "autograd", "simd", "c++17"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Science/Research",
+  "Programming Language :: C++",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["log3*"]
+
+[tool.setuptools.package-data]
+log3 = ["py.typed", "*.pyi"]
