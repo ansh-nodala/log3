@@ -7,3 +7,7 @@
 /home/ansh-raj/projects/python/utils/log3/build/CMakeFiles/test.dir
 /home/ansh-raj/projects/python/utils/log3/build/CMakeFiles/edit_cache.dir
 /home/ansh-raj/projects/python/utils/log3/build/CMakeFiles/rebuild_cache.dir
+/home/ansh-raj/projects/python/utils/log3/build/CMakeFiles/list_install_components.dir
+/home/ansh-raj/projects/python/utils/log3/build/CMakeFiles/install.dir
+/home/ansh-raj/projects/python/utils/log3/build/CMakeFiles/install/local.dir
+/home/ansh-raj/projects/python/utils/log3/build/CMakeFiles/install/strip.dir
