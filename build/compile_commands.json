@@ -1,0 +1,140 @@
+[
+{
+  "directory": "/home/ansh-raj/projects/python/utils/log3/build",
+  "command": "/usr/bin/c++ -DL3_MEMORY_TRACKING=1 -DL3_STATIC=1 -I/home/ansh-raj/projects/python/utils/log3/include -O3 -DNDEBUG -std=c++17 -fPIC -Wall -Wextra -Wpedantic -Wno-unused-parameter -fno-exceptions -fno-rtti -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3/= -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3=. -march=native -o CMakeFiles/log3.dir/src/autograd/engine.cpp.o -c /home/ansh-raj/projects/python/utils/log3/src/autograd/engine.cpp",
+  "file": "/home/ansh-raj/projects/python/utils/log3/src/autograd/engine.cpp",
+  "output": "CMakeFiles/log3.dir/src/autograd/engine.cpp.o"
+},
+{
+  "directory": "/home/ansh-raj/projects/python/utils/log3/build",
+  "command": "/usr/bin/c++ -DL3_MEMORY_TRACKING=1 -DL3_STATIC=1 -I/home/ansh-raj/projects/python/utils/log3/include -O3 -DNDEBUG -std=c++17 -fPIC -Wall -Wextra -Wpedantic -Wno-unused-parameter -fno-exceptions -fno-rtti -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3/= -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3=. -march=native -o CMakeFiles/log3.dir/src/autograd/ops.cpp.o -c /home/ansh-raj/projects/python/utils/log3/src/autograd/ops.cpp",
+  "file": "/home/ansh-raj/projects/python/utils/log3/src/autograd/ops.cpp",
+  "output": "CMakeFiles/log3.dir/src/autograd/ops.cpp.o"
+},
+{
+  "directory": "/home/ansh-raj/projects/python/utils/log3/build",
+  "command": "/usr/bin/c++ -DL3_MEMORY_TRACKING=1 -DL3_STATIC=1 -I/home/ansh-raj/projects/python/utils/log3/include -O3 -DNDEBUG -std=c++17 -fPIC -Wall -Wextra -Wpedantic -Wno-unused-parameter -fno-exceptions -fno-rtti -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3/= -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3=. -march=native -o CMakeFiles/log3.dir/src/core/arena.cpp.o -c /home/ansh-raj/projects/python/utils/log3/src/core/arena.cpp",
+  "file": "/home/ansh-raj/projects/python/utils/log3/src/core/arena.cpp",
+  "output": "CMakeFiles/log3.dir/src/core/arena.cpp.o"
+},
+{
+  "directory": "/home/ansh-raj/projects/python/utils/log3/build",
+  "command": "/usr/bin/c++ -DL3_MEMORY_TRACKING=1 -DL3_STATIC=1 -I/home/ansh-raj/projects/python/utils/log3/include -O3 -DNDEBUG -std=c++17 -fPIC -Wall -Wextra -Wpedantic -Wno-unused-parameter -fno-exceptions -fno-rtti -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3/= -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3=. -march=native -o CMakeFiles/log3.dir/src/core/assert.cpp.o -c /home/ansh-raj/projects/python/utils/log3/src/core/assert.cpp",
+  "file": "/home/ansh-raj/projects/python/utils/log3/src/core/assert.cpp",
+  "output": "CMakeFiles/log3.dir/src/core/assert.cpp.o"
+},
+{
+  "directory": "/home/ansh-raj/projects/python/utils/log3/build",
+  "command": "/usr/bin/c++ -DL3_MEMORY_TRACKING=1 -DL3_STATIC=1 -I/home/ansh-raj/projects/python/utils/log3/include -O3 -DNDEBUG -std=c++17 -fPIC -Wall -Wextra -Wpedantic -Wno-unused-parameter -fno-exceptions -fno-rtti -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3/= -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3=. -march=native -o CMakeFiles/log3.dir/src/core/cpu_features.cpp.o -c /home/ansh-raj/projects/python/utils/log3/src/core/cpu_features.cpp",
+  "file": "/home/ansh-raj/projects/python/utils/log3/src/core/cpu_features.cpp",
+  "output": "CMakeFiles/log3.dir/src/core/cpu_features.cpp.o"
+},
+{
+  "directory": "/home/ansh-raj/projects/python/utils/log3/build",
+  "command": "/usr/bin/c++ -DL3_MEMORY_TRACKING=1 -DL3_STATIC=1 -I/home/ansh-raj/projects/python/utils/log3/include -O3 -DNDEBUG -std=c++17 -fPIC -Wall -Wextra -Wpedantic -Wno-unused-parameter -fno-exceptions -fno-rtti -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3/= -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3=. -march=native -o CMakeFiles/log3.dir/src/core/log.cpp.o -c /home/ansh-raj/projects/python/utils/log3/src/core/log.cpp",
+  "file": "/home/ansh-raj/projects/python/utils/log3/src/core/log.cpp",
+  "output": "CMakeFiles/log3.dir/src/core/log.cpp.o"
+},
+{
+  "directory": "/home/ansh-raj/projects/python/utils/log3/build",
+  "command": "/usr/bin/c++ -DL3_MEMORY_TRACKING=1 -DL3_STATIC=1 -I/home/ansh-raj/projects/python/utils/log3/include -O3 -DNDEBUG -std=c++17 -fPIC -Wall -Wextra -Wpedantic -Wno-unused-parameter -fno-exceptions -fno-rtti -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3/= -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3=. -march=native -o CMakeFiles/log3.dir/src/core/memory.cpp.o -c /home/ansh-raj/projects/python/utils/log3/src/core/memory.cpp",
+  "file": "/home/ansh-raj/projects/python/utils/log3/src/core/memory.cpp",
+  "output": "CMakeFiles/log3.dir/src/core/memory.cpp.o"
+},
+{
+  "directory": "/home/ansh-raj/projects/python/utils/log3/build",
+  "command": "/usr/bin/c++ -DL3_MEMORY_TRACKING=1 -DL3_STATIC=1 -I/home/ansh-raj/projects/python/utils/log3/include -O3 -DNDEBUG -std=c++17 -fPIC -Wall -Wextra -Wpedantic -Wno-unused-parameter -fno-exceptions -fno-rtti -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3/= -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3=. -march=native -o CMakeFiles/log3.dir/src/core/mmap.cpp.o -c /home/ansh-raj/projects/python/utils/log3/src/core/mmap.cpp",
+  "file": "/home/ansh-raj/projects/python/utils/log3/src/core/mmap.cpp",
+  "output": "CMakeFiles/log3.dir/src/core/mmap.cpp.o"
+},
+{
+  "directory": "/home/ansh-raj/projects/python/utils/log3/build",
+  "command": "/usr/bin/c++ -DL3_MEMORY_TRACKING=1 -DL3_STATIC=1 -I/home/ansh-raj/projects/python/utils/log3/include -O3 -DNDEBUG -std=c++17 -fPIC -Wall -Wextra -Wpedantic -Wno-unused-parameter -fno-exceptions -fno-rtti -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3/= -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3=. -march=native -o CMakeFiles/log3.dir/src/core/status.cpp.o -c /home/ansh-raj/projects/python/utils/log3/src/core/status.cpp",
+  "file": "/home/ansh-raj/projects/python/utils/log3/src/core/status.cpp",
+  "output": "CMakeFiles/log3.dir/src/core/status.cpp.o"
+},
+{
+  "directory": "/home/ansh-raj/projects/python/utils/log3/build",
+  "command": "/usr/bin/c++ -DL3_MEMORY_TRACKING=1 -DL3_STATIC=1 -I/home/ansh-raj/projects/python/utils/log3/include -O3 -DNDEBUG -std=c++17 -fPIC -Wall -Wextra -Wpedantic -Wno-unused-parameter -fno-exceptions -fno-rtti -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3/= -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3=. -march=native -o CMakeFiles/log3.dir/src/core/thread_pool.cpp.o -c /home/ansh-raj/projects/python/utils/log3/src/core/thread_pool.cpp",
+  "file": "/home/ansh-raj/projects/python/utils/log3/src/core/thread_pool.cpp",
+  "output": "CMakeFiles/log3.dir/src/core/thread_pool.cpp.o"
+},
+{
+  "directory": "/home/ansh-raj/projects/python/utils/log3/build",
+  "command": "/usr/bin/c++ -DL3_MEMORY_TRACKING=1 -DL3_STATIC=1 -I/home/ansh-raj/projects/python/utils/log3/include -O3 -DNDEBUG -std=c++17 -fPIC -Wall -Wextra -Wpedantic -Wno-unused-parameter -fno-exceptions -fno-rtti -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3/= -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3=. -march=native -o CMakeFiles/log3.dir/src/io/checkpoint.cpp.o -c /home/ansh-raj/projects/python/utils/log3/src/io/checkpoint.cpp",
+  "file": "/home/ansh-raj/projects/python/utils/log3/src/io/checkpoint.cpp",
+  "output": "CMakeFiles/log3.dir/src/io/checkpoint.cpp.o"
+},
+{
+  "directory": "/home/ansh-raj/projects/python/utils/log3/build",
+  "command": "/usr/bin/c++ -DL3_MEMORY_TRACKING=1 -DL3_STATIC=1 -I/home/ansh-raj/projects/python/utils/log3/include -O3 -DNDEBUG -std=c++17 -fPIC -Wall -Wextra -Wpedantic -Wno-unused-parameter -fno-exceptions -fno-rtti -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3/= -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3=. -march=native -o CMakeFiles/log3.dir/src/kernels/cpu_kernels.cpp.o -c /home/ansh-raj/projects/python/utils/log3/src/kernels/cpu_kernels.cpp",
+  "file": "/home/ansh-raj/projects/python/utils/log3/src/kernels/cpu_kernels.cpp",
+  "output": "CMakeFiles/log3.dir/src/kernels/cpu_kernels.cpp.o"
+},
+{
+  "directory": "/home/ansh-raj/projects/python/utils/log3/build",
+  "command": "/usr/bin/c++ -DL3_MEMORY_TRACKING=1 -DL3_STATIC=1 -I/home/ansh-raj/projects/python/utils/log3/include -O3 -DNDEBUG -std=c++17 -fPIC -Wall -Wextra -Wpedantic -Wno-unused-parameter -fno-exceptions -fno-rtti -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3/= -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3=. -march=native -o CMakeFiles/log3.dir/src/nn/attention.cpp.o -c /home/ansh-raj/projects/python/utils/log3/src/nn/attention.cpp",
+  "file": "/home/ansh-raj/projects/python/utils/log3/src/nn/attention.cpp",
+  "output": "CMakeFiles/log3.dir/src/nn/attention.cpp.o"
+},
+{
+  "directory": "/home/ansh-raj/projects/python/utils/log3/build",
+  "command": "/usr/bin/c++ -DL3_MEMORY_TRACKING=1 -DL3_STATIC=1 -I/home/ansh-raj/projects/python/utils/log3/include -O3 -DNDEBUG -std=c++17 -fPIC -Wall -Wextra -Wpedantic -Wno-unused-parameter -fno-exceptions -fno-rtti -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3/= -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3=. -march=native -o CMakeFiles/log3.dir/src/nn/layers.cpp.o -c /home/ansh-raj/projects/python/utils/log3/src/nn/layers.cpp",
+  "file": "/home/ansh-raj/projects/python/utils/log3/src/nn/layers.cpp",
+  "output": "CMakeFiles/log3.dir/src/nn/layers.cpp.o"
+},
+{
+  "directory": "/home/ansh-raj/projects/python/utils/log3/build",
+  "command": "/usr/bin/c++ -DL3_MEMORY_TRACKING=1 -DL3_STATIC=1 -I/home/ansh-raj/projects/python/utils/log3/include -O3 -DNDEBUG -std=c++17 -fPIC -Wall -Wextra -Wpedantic -Wno-unused-parameter -fno-exceptions -fno-rtti -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3/= -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3=. -march=native -o CMakeFiles/log3.dir/src/nn/transformer.cpp.o -c /home/ansh-raj/projects/python/utils/log3/src/nn/transformer.cpp",
+  "file": "/home/ansh-raj/projects/python/utils/log3/src/nn/transformer.cpp",
+  "output": "CMakeFiles/log3.dir/src/nn/transformer.cpp.o"
+},
+{
+  "directory": "/home/ansh-raj/projects/python/utils/log3/build",
+  "command": "/usr/bin/c++ -DL3_MEMORY_TRACKING=1 -DL3_STATIC=1 -I/home/ansh-raj/projects/python/utils/log3/include -O3 -DNDEBUG -std=c++17 -fPIC -Wall -Wextra -Wpedantic -Wno-unused-parameter -fno-exceptions -fno-rtti -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3/= -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3=. -march=native -o CMakeFiles/log3.dir/src/optim/optimizer.cpp.o -c /home/ansh-raj/projects/python/utils/log3/src/optim/optimizer.cpp",
+  "file": "/home/ansh-raj/projects/python/utils/log3/src/optim/optimizer.cpp",
+  "output": "CMakeFiles/log3.dir/src/optim/optimizer.cpp.o"
+},
+{
+  "directory": "/home/ansh-raj/projects/python/utils/log3/build",
+  "command": "/usr/bin/c++ -DL3_MEMORY_TRACKING=1 -DL3_STATIC=1 -I/home/ansh-raj/projects/python/utils/log3/include -O3 -DNDEBUG -std=c++17 -fPIC -Wall -Wextra -Wpedantic -Wno-unused-parameter -fno-exceptions -fno-rtti -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3/= -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3=. -march=native -o CMakeFiles/log3.dir/src/tensor/shape.cpp.o -c /home/ansh-raj/projects/python/utils/log3/src/tensor/shape.cpp",
+  "file": "/home/ansh-raj/projects/python/utils/log3/src/tensor/shape.cpp",
+  "output": "CMakeFiles/log3.dir/src/tensor/shape.cpp.o"
+},
+{
+  "directory": "/home/ansh-raj/projects/python/utils/log3/build",
+  "command": "/usr/bin/c++ -DL3_MEMORY_TRACKING=1 -DL3_STATIC=1 -I/home/ansh-raj/projects/python/utils/log3/include -O3 -DNDEBUG -std=c++17 -fPIC -Wall -Wextra -Wpedantic -Wno-unused-parameter -fno-exceptions -fno-rtti -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3/= -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3=. -march=native -o CMakeFiles/log3.dir/src/tensor/tensor.cpp.o -c /home/ansh-raj/projects/python/utils/log3/src/tensor/tensor.cpp",
+  "file": "/home/ansh-raj/projects/python/utils/log3/src/tensor/tensor.cpp",
+  "output": "CMakeFiles/log3.dir/src/tensor/tensor.cpp.o"
+},
+{
+  "directory": "/home/ansh-raj/projects/python/utils/log3/build",
+  "command": "/usr/bin/c++ -DL3_MEMORY_TRACKING=1 -DL3_STATIC=1 -I/home/ansh-raj/projects/python/utils/log3/include -O3 -DNDEBUG -std=c++17 -fPIE -Wall -Wextra -Wpedantic -Wno-unused-parameter -fno-exceptions -fno-rtti -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3/= -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3=. -march=native -o CMakeFiles/log3_main.dir/main.cpp.o -c /home/ansh-raj/projects/python/utils/log3/main.cpp",
+  "file": "/home/ansh-raj/projects/python/utils/log3/main.cpp",
+  "output": "CMakeFiles/log3_main.dir/main.cpp.o"
+},
+{
+  "directory": "/home/ansh-raj/projects/python/utils/log3/build",
+  "command": "/usr/bin/c++ -DL3_MEMORY_TRACKING=1 -DL3_STATIC=1 -I/home/ansh-raj/projects/python/utils/log3/include -O3 -DNDEBUG -std=c++17 -fPIE -Wall -Wextra -Wpedantic -Wno-unused-parameter -fno-exceptions -fno-rtti -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3/= -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3=. -march=native -o CMakeFiles/test_autograd.dir/tests/test_autograd.cpp.o -c /home/ansh-raj/projects/python/utils/log3/tests/test_autograd.cpp",
+  "file": "/home/ansh-raj/projects/python/utils/log3/tests/test_autograd.cpp",
+  "output": "CMakeFiles/test_autograd.dir/tests/test_autograd.cpp.o"
+},
+{
+  "directory": "/home/ansh-raj/projects/python/utils/log3/build",
+  "command": "/usr/bin/c++ -DL3_MEMORY_TRACKING=1 -DL3_STATIC=1 -I/home/ansh-raj/projects/python/utils/log3/include -O3 -DNDEBUG -std=c++17 -fPIE -Wall -Wextra -Wpedantic -Wno-unused-parameter -fno-exceptions -fno-rtti -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3/= -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3=. -march=native -o CMakeFiles/test_core.dir/tests/test_core.cpp.o -c /home/ansh-raj/projects/python/utils/log3/tests/test_core.cpp",
+  "file": "/home/ansh-raj/projects/python/utils/log3/tests/test_core.cpp",
+  "output": "CMakeFiles/test_core.dir/tests/test_core.cpp.o"
+},
+{
+  "directory": "/home/ansh-raj/projects/python/utils/log3/build",
+  "command": "/usr/bin/c++ -DL3_MEMORY_TRACKING=1 -DL3_STATIC=1 -I/home/ansh-raj/projects/python/utils/log3/include -O3 -DNDEBUG -std=c++17 -fPIE -Wall -Wextra -Wpedantic -Wno-unused-parameter -fno-exceptions -fno-rtti -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3/= -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3=. -march=native -o CMakeFiles/test_nn_and_io.dir/tests/test_nn_and_io.cpp.o -c /home/ansh-raj/projects/python/utils/log3/tests/test_nn_and_io.cpp",
+  "file": "/home/ansh-raj/projects/python/utils/log3/tests/test_nn_and_io.cpp",
+  "output": "CMakeFiles/test_nn_and_io.dir/tests/test_nn_and_io.cpp.o"
+},
+{
+  "directory": "/home/ansh-raj/projects/python/utils/log3/build",
+  "command": "/usr/bin/c++ -DL3_MEMORY_TRACKING=1 -DL3_STATIC=1 -I/home/ansh-raj/projects/python/utils/log3/include -O3 -DNDEBUG -std=c++17 -fPIE -Wall -Wextra -Wpedantic -Wno-unused-parameter -fno-exceptions -fno-rtti -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3/= -ffile-prefix-map=/home/ansh-raj/projects/python/utils/log3=. -march=native -o CMakeFiles/test_tensor_and_kernels.dir/tests/test_tensor_and_kernels.cpp.o -c /home/ansh-raj/projects/python/utils/log3/tests/test_tensor_and_kernels.cpp",
+  "file": "/home/ansh-raj/projects/python/utils/log3/tests/test_tensor_and_kernels.cpp",
+  "output": "CMakeFiles/test_tensor_and_kernels.dir/tests/test_tensor_and_kernels.cpp.o"
+}
+]

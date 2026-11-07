@@ -1,0 +1,1 @@
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/test_autograd.dir/link.d CMakeFiles/test_autograd.dir/tests/test_autograd.cpp.o -o test_autograd  liblog3.a -lm

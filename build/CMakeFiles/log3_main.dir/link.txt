@@ -1,0 +1,1 @@
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/log3_main.dir/link.d CMakeFiles/log3_main.dir/main.cpp.o -o log3_main  liblog3.a -lm

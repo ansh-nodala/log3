@@ -1,8 +1,9 @@
 // log3/tensor/tensor.h
 //
 // Tensor: lightweight multi-dimensional array view over a ref-counted Storage,
-// with first-class support for scalar DTypes (f32, f16, bf16, i8, i32, ...) and
-// BitNet sub-byte quantized DTypes (kTernary2 "t2", kInt4 "i4", kUInt4 "u4").
+// with first-class support for scalar DTypes (f32, f16, bf16, i8, i32, ...),
+// BitNet sub-byte quantized DTypes (kTernary2 "t2", kInt4 "i4", kUInt4 "u4"),
+// and optional zero-overhead reverse-mode Autograd tracking.
 //
 // Design principles:
 //   * Copying a Tensor (via `.view()` or move) never copies underlying data:
@@ -12,6 +13,12 @@
 //     deep vs shallow copy confusion is impossible: call `.view()` for an
 //     explicit zero-copy alias (O(1) ref-count bump) or `.clone()` for an
 //     explicit deep contiguous copy.
+//   * Zero-overhead Autograd integration: `autograd_meta_` is a single
+//     intrusive `Ptr<AutogradMeta>` (8 bytes, `nullptr` during inference).
+//     Inference tensors never allocate `AutogradMeta`, paying 0 bytes of heap
+//     overhead. When `set_requires_grad(true)` is called or a differentiable op
+//     produces an output while `GradMode::is_enabled()`, `AutogradMeta` holds
+//     the accumulated gradient `Tensor` and the creator `Ptr<GradNode>`.
 //   * Built-in quantization scale metadata (`quant_scale()`): BitNet b1.58 and
 //     INT4 weight tensors carry a per-tensor scalar scale (`f32`), so linear
 //     layers and GEMM kernels have everything they need inside one Tensor.
@@ -36,11 +43,18 @@
 
 namespace l3 {
 
+namespace autograd {
+class GradNode;
+}  // namespace autograd
+
+struct AutogradMeta;
+
 class L3_API Tensor {
  public:
   // Default constructor creates an empty/uninitialized Tensor (`!is_valid()`).
   Tensor() noexcept
       : storage_(),
+        autograd_meta_(),
         shape_(),
         strides_(),
         byte_offset_(0),
@@ -119,13 +133,14 @@ class L3_API Tensor {
                      meta_allocator);
   }
 
-  // --- explicit copy / clone -------------------------------------------------
+  // --- explicit copy / clone / detach ----------------------------------------
 
-  // O(1) shallow copy: shares the underlying `Storage` with identical shape,
-  // strides, byte_offset, and quant_scale.
+  // O(1) shallow copy: shares the underlying `Storage` and `AutogradMeta`
+  // with identical shape, strides, byte_offset, and quant_scale.
   Tensor view() const noexcept {
     Tensor out;
     out.storage_ = storage_;
+    out.autograd_meta_ = autograd_meta_;
     out.shape_ = shape_;
     out.strides_ = strides_;
     out.byte_offset_ = byte_offset_;
@@ -134,8 +149,22 @@ class L3_API Tensor {
     return out;
   }
 
-  // Deep copy into a newly allocated contiguous Tensor. Works for both
-  // contiguous and non-contiguous (strided/transposed/sliced) tensors.
+  // O(1) shallow view detached from the autograd graph (`requires_grad() == false`,
+  // `grad_node() == nullptr`). Shares `Storage` without tracking gradients.
+  Tensor detach() const noexcept {
+    Tensor out;
+    out.storage_ = storage_;
+    out.autograd_meta_ = nullptr;
+    out.shape_ = shape_;
+    out.strides_ = strides_;
+    out.byte_offset_ = byte_offset_;
+    out.dtype_ = dtype_;
+    out.quant_scale_ = quant_scale_;
+    return out;
+  }
+
+  // Deep copy into a newly allocated contiguous Tensor (detached from autograd
+  // history). Works for both contiguous and non-contiguous tensors.
   Result<Tensor> clone(
       const Allocator& allocator = default_allocator()) const noexcept;
 
@@ -184,6 +213,46 @@ class L3_API Tensor {
   void set_quant_scale(f32 scale) noexcept { quant_scale_ = scale; }
 
   const Ptr<Storage>& storage() const noexcept { return storage_; }
+
+  // --- autograd interface ----------------------------------------------------
+
+  // Returns true if gradients are tracked for this Tensor.
+  bool requires_grad() const noexcept;
+
+  // Enable or disable gradient tracking on this Tensor.
+  // Only floating-point tensors (`f32`, `f16`, `bf16`, `f64`) may require grad.
+  Status set_requires_grad(bool req = true) noexcept;
+
+  // True if `requires_grad()` is true and this tensor was created by the user
+  // (i.e. `grad_node() == nullptr`).
+  bool is_leaf() const noexcept;
+
+  // Returns true if a gradient tensor has been accumulated for this Tensor.
+  bool has_grad() const noexcept;
+
+  // Read-only or mutable access to the accumulated gradient Tensor.
+  // Returns nullptr if `has_grad()` is false.
+  const Tensor* grad() const noexcept;
+  Tensor* mutable_grad() noexcept;
+
+  // Accumulate `incoming_grad` (must match `shape()` and `kFloat32`) into this
+  // Tensor's `.grad()`, allocating `.grad()` lazily on first accumulation.
+  Status accumulate_grad(const Tensor& incoming_grad) noexcept;
+
+  // Reset `.grad()` to zeros (if already allocated) or clear it.
+  void zero_grad() noexcept;
+
+  // Run reverse-mode automatic differentiation starting from this Tensor.
+  // If `grad_output` is nullptr, defaults to `ones_like(*this)` (typically
+  // called on a scalar loss tensor).
+  Status backward(const Tensor* grad_output = nullptr) const noexcept;
+
+  // Internal autograd graph plumbing (used by `log3/autograd/ops`).
+  autograd::GradNode* grad_node() const noexcept;
+  Status set_grad_node(Ptr<autograd::GradNode> node) noexcept;
+  const Ptr<AutogradMeta>& autograd_meta() const noexcept {
+    return autograd_meta_;
+  }
 
   // --- raw & typed data pointers ---------------------------------------------
   const byte* raw_data() const noexcept {
@@ -256,11 +325,24 @@ class L3_API Tensor {
 
  private:
   Ptr<Storage> storage_;
+  Ptr<AutogradMeta> autograd_meta_;
   Shape shape_;
   Strides strides_;
   Size byte_offset_;
   DType dtype_;
   f32 quant_scale_;
+};
+
+// -----------------------------------------------------------------------------
+// AutogradMeta: Lazily allocated intrusive ref-counted gradient state
+// -----------------------------------------------------------------------------
+struct L3_API AutogradMeta final : public RefCounted {
+  Tensor grad;                        // Accumulated gradient (empty until first backward)
+  Ptr<autograd::GradNode> grad_node;  // Creator operation in the computational DAG
+  bool requires_grad = false;
+
+  AutogradMeta() noexcept = default;
+  ~AutogradMeta() noexcept;
 };
 
 }  // namespace l3

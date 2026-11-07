@@ -1,0 +1,1 @@
+/usr/bin/c++ -O3 -DNDEBUG -Wl,--dependency-file=CMakeFiles/test_tensor_and_kernels.dir/link.d CMakeFiles/test_tensor_and_kernels.dir/tests/test_tensor_and_kernels.cpp.o -o test_tensor_and_kernels  liblog3.a -lm

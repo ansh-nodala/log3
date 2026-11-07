@@ -1,0 +1,5 @@
+test_autograd 2 0.00280614
+test_core 2 0.00231532
+test_nn_and_io 2 0.00486029
+test_tensor_and_kernels 2 0.00269478
+---

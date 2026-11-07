@@ -1,12 +1,17 @@
 // src/tensor/tensor.cpp
 //
 // Implementation of Tensor creation, zero-copy view operations (reshape,
-// transpose, permute, slice, squeeze, unsqueeze), and strided-to-contiguous
-// deep cloning.
+// transpose, permute, slice, squeeze, unsqueeze), strided-to-contiguous
+// deep cloning, and intrusive AutogradMeta methods.
 
 #include "log3/tensor/tensor.h"
 
+#include "log3/autograd/engine.h"
+#include "log3/kernels/cpu_kernels.h"
+
 namespace l3 {
+
+AutogradMeta::~AutogradMeta() noexcept = default;
 
 namespace {
 
@@ -27,7 +32,6 @@ Status verify_storage_bounds(const Shape& shape, const Strides& strides,
     return Status::ok();
   }
 
-  // Compute maximum element offset: sum((dim[i] - 1) * stride[i]).
   Index max_elem_idx = 0;
   for (Index i = 0; i < shape.rank(); ++i) {
     if (shape[i] > 1 && strides[i] > 0) {
@@ -43,8 +47,6 @@ Status verify_storage_bounds(const Shape& shape, const Strides& strides,
     }
   }
 
-  // Total element span from element 0 through `max_elem_idx` inclusive is
-  // `max_elem_idx + 1`, rounded up to whole storage blocks for sub-byte types.
   const Index span_elems = max_elem_idx + 1;
   Size needed_bytes = 0;
   L3_RETURN_IF_ERROR(
@@ -62,7 +64,6 @@ Status verify_storage_bounds(const Shape& shape, const Strides& strides,
   return Status::ok();
 }
 
-// Recursive N-dimensional strided copy for non-contiguous full-byte tensors.
 void copy_strided_recursive(const byte* src_base, byte* dst_base,
                             const Shape& shape, const Strides& src_strides,
                             Size elem_bytes, Index axis, Index src_elem_offset,
@@ -92,6 +93,111 @@ void copy_strided_recursive(const byte* src_base, byte* dst_base,
 }
 
 }  // namespace
+
+// -----------------------------------------------------------------------------
+// Autograd methods on Tensor
+// -----------------------------------------------------------------------------
+
+bool Tensor::requires_grad() const noexcept {
+  return autograd_meta_ != nullptr && autograd_meta_->requires_grad;
+}
+
+Status Tensor::set_requires_grad(bool req) noexcept {
+  if (!req) {
+    if (autograd_meta_ != nullptr) {
+      autograd_meta_->requires_grad = false;
+    }
+    return Status::ok();
+  }
+  if (!is_valid()) {
+    return Status::error(StatusCode::kFailedPrecondition,
+                         "Tensor::set_requires_grad: Tensor is not valid");
+  }
+  if (!is_float_dtype(dtype_)) {
+    return Status::errorf(
+        StatusCode::kTypeMismatch,
+        "Tensor::set_requires_grad: only floating-point tensors can require "
+        "gradients (got DType '%s')",
+        dtype_name(dtype_));
+  }
+  if (autograd_meta_ == nullptr) {
+    L3_ASSIGN_OR_RETURN(autograd_meta_, make_ptr<AutogradMeta>());
+  }
+  autograd_meta_->requires_grad = true;
+  return Status::ok();
+}
+
+bool Tensor::is_leaf() const noexcept {
+  return requires_grad() &&
+         (autograd_meta_ == nullptr || autograd_meta_->grad_node == nullptr);
+}
+
+bool Tensor::has_grad() const noexcept {
+  return autograd_meta_ != nullptr && autograd_meta_->grad.is_valid();
+}
+
+const Tensor* Tensor::grad() const noexcept {
+  if (!has_grad()) return nullptr;
+  return &autograd_meta_->grad;
+}
+
+Tensor* Tensor::mutable_grad() noexcept {
+  if (!has_grad()) return nullptr;
+  return &autograd_meta_->grad;
+}
+
+Status Tensor::accumulate_grad(const Tensor& incoming_grad) noexcept {
+  if (!incoming_grad.is_valid() || incoming_grad.dtype() != DType::kFloat32) {
+    return Status::error(StatusCode::kInvalidArgument,
+                         "Tensor::accumulate_grad: incoming_grad must be f32");
+  }
+  if (incoming_grad.shape() != shape_) {
+    return Status::error(StatusCode::kShapeMismatch,
+                         "Tensor::accumulate_grad: gradient shape mismatch");
+  }
+  if (autograd_meta_ == nullptr) {
+    L3_ASSIGN_OR_RETURN(autograd_meta_, make_ptr<AutogradMeta>());
+  }
+  if (!autograd_meta_->grad.is_valid()) {
+    L3_ASSIGN_OR_RETURN(autograd_meta_->grad, incoming_grad.clone());
+    return Status::ok();
+  }
+
+  Tensor contig_in;
+  L3_ASSIGN_OR_RETURN(contig_in, incoming_grad.contiguous());
+  kernels::add_f32(autograd_meta_->grad.data_ptr<f32>(),
+                   contig_in.data_ptr<f32>(),
+                   autograd_meta_->grad.mutable_data_ptr<f32>(), numel());
+  return Status::ok();
+}
+
+void Tensor::zero_grad() noexcept {
+  if (autograd_meta_ != nullptr && autograd_meta_->grad.is_valid()) {
+    mem_zero(autograd_meta_->grad.raw_mutable_data(),
+             autograd_meta_->grad.nbytes());
+  }
+}
+
+Status Tensor::backward(const Tensor* grad_output) const noexcept {
+  return autograd::run_backward(*this, grad_output);
+}
+
+autograd::GradNode* Tensor::grad_node() const noexcept {
+  return autograd_meta_ != nullptr ? autograd_meta_->grad_node.get() : nullptr;
+}
+
+Status Tensor::set_grad_node(Ptr<autograd::GradNode> node) noexcept {
+  if (autograd_meta_ == nullptr) {
+    L3_ASSIGN_OR_RETURN(autograd_meta_, make_ptr<AutogradMeta>());
+  }
+  autograd_meta_->requires_grad = true;
+  autograd_meta_->grad_node = std::move(node);
+  return Status::ok();
+}
+
+// -----------------------------------------------------------------------------
+// Factory & View methods
+// -----------------------------------------------------------------------------
 
 Result<Tensor> Tensor::empty(const Shape& shape, DType dtype,
                              const Allocator& allocator) noexcept {
@@ -482,7 +588,6 @@ Result<Tensor> Tensor::squeeze(Index axis) const noexcept {
                          "Tensor::squeeze: invalid Tensor");
   }
 
-  // Sentinel axis == -999 removes ALL size-1 dimensions.
   if (axis == -999) {
     if (rank() == 0) return view();
     Index new_dims[kMaxTensorDims]{};
